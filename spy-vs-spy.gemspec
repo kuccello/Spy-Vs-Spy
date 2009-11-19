@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name     = "spy-vs-spy"
-  s.version  = "0.0.1"
+  s.version  = "0.0.2"
   s.date     = "2009-11-19"
   s.summary  = "UserAgent Detection Middleware for Rack."
   s.email    = "kaptiankrispy@soldierofcode.com"

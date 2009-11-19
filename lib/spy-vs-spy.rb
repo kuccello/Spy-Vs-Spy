@@ -38,7 +38,7 @@ module SoldierOfCode
     end
 
     def deconstruct(agent)
-      ParseUserAgent.new(agent)
+      ParseUserAgent.new.parse(agent)
     end
 
   end
