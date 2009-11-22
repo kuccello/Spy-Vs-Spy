@@ -21,6 +21,14 @@
   see LICENSE file for details
   
 =end
+class String
+  def starts_with?(str)
+    str = str.to_str
+    head = self[0, str.length]
+    head == str
+  end
+end
+
 module SoldierOfCode
 
   class SpyVsSpy
@@ -285,7 +293,39 @@ module SoldierOfCode
     # returns:
     # ----------------
     def process_ie(agent)
+      # @detail
+      if agent.include?("MSIE")
+        @browser = "MSIE"
+      end
+      if @detail.include?("MSIE")
+        @detail.gsub(/[\\:\?'"%!@#\$\^&\*\(\)\+]/, '').split(";").each do |sec|
+          if sec.strip.starts_with?("MSIE ") then
+            s = sec.strip.sub("MSIE ", "").sub("06", "0.6").sub(",", ".").split(".")
+            @browser_version_major = s[0] if s.size > 0
+            @browser_version_minor = s[1] if s.size > 1
+          end
 
+          break if @browser_version_major
+        end
+      end
+
+      unless @browser_version_major
+        if agent.include?("MSIE 6.0")
+          @browser = "MSIE"
+          @browser_version_major = '6'
+          @browser_version_minor = '0'
+        end
+        if agent.include?("MSIE 7.0")
+          @browser = "MSIE"
+          @browser_version_major = '7'
+          @browser_version_minor = '0'
+        end
+        if agent.include?("MSIE 8.0")
+          @browser = "MSIE"
+          @browser_version_major = '8'
+          @browser_version_minor = '0'
+        end
+      end
     end
 
     #
@@ -312,7 +352,7 @@ module SoldierOfCode
 
         identifier_sub = nil
         @identifier.gsub(/[\\:\?'"%!@#\$\^&\*\(\)\+]/, '').split(" ").each do |ident|
-          identifier_sub = ident.sub("Firefox\/", "").sub("Gecko/","") if ident.include?("Firefox")
+          identifier_sub = ident.sub("Firefox\/", "").sub("Gecko/", "") if ident.include?("Firefox")
           identifier_sub.gsub!(/[\+]/, '') if identifier_sub && identifier_sub.include?("+")
         end
         if identifier_sub == nil && @renderer.include?("Firefox")
@@ -323,7 +363,7 @@ module SoldierOfCode
         end
         if identifier_sub == nil && @engine.include?("Firefox")
           @engine.gsub(/[\\:\?'"%!@#\$\^&\*\(\)\+]/, '').split(" ").each do |ident|
-            identifier_sub = ident.sub("Firefox\/", "").sub("Gecko/","") if ident.include?("Firefox")
+            identifier_sub = ident.sub("Firefox\/", "").sub("Gecko/", "") if ident.include?("Firefox")
             identifier_sub.gsub!(/[\+]/, '') if identifier_sub && identifier_sub.include?("+")
           end
         end
