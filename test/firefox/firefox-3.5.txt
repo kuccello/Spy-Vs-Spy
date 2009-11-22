@@ -1,0 +1,40 @@
+Mozilla/5.0 (X11;U; Linux i686; en-GB; rv:1.9.1) Gecko/20090624 Ubuntu/9.04 (jaunty) Firefox/3.5
+Mozilla/5.0 (X11; U; Linux i686; ja; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 3.5.30729)
+Mozilla/5.0 (X11; U; Linux i686; it-IT; rv:1.9.0.2) Gecko/2008092313 Ubuntu/9.04 (jaunty) Firefox/3.5
+Mozilla/5.0 (X11; U; Linux i686; fr; rv:1.9.1) Gecko/20090624 Firefox/3.5
+Mozilla/5.0 (X11; U; Linux i686; fr-FR; rv:1.9.1) Gecko/20090624 Ubuntu/9.04 (jaunty) Firefox/3.5
+Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1) Gecko/20090701 Ubuntu/9.04 (jaunty) Firefox/3.5
+Mozilla/5.0 (X11; U; Linux i686; en-us; rv:1.9.0.2) Gecko/2008092313 Ubuntu/9.04 (jaunty) Firefox/3.5
+Mozilla/5.0 (X11; U; Linux i686; de; rv:1.9.1) Gecko/20090624 Ubuntu/8.04 (hardy) Firefox/3.5
+Mozilla/5.0 (X11; U; Linux i686; de; rv:1.9.1) Gecko/20090624 Firefox/3.5
+Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.9.1) Gecko/20090624 Firefox/3.5
+Mozilla/5.0 (X11; U; FreeBSD i386; en-US; rv:1.9.1) Gecko/20090703 Firefox/3.5
+Mozilla/5.0 (Windows; U; Windows NT 6.1; pl; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 3.5.30729)
+Mozilla/5.0 (Windows; U; Windows NT 6.1; es-ES; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 3.5.30729)
+Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1) Gecko/20090612 Firefox/3.5 (.NET CLR 4.0.20506)
+Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1) Gecko/20090612 Firefox/3.5
+Mozilla/5.0 (Windows; U; Windows NT 6.1; de; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 4.0.20506)
+Mozilla/5.0 (Windows; U; Windows NT 6.1; de; rv:1.9.1) Gecko/20090624 Firefox/3.5
+Mozilla/5.0 (Windows; U; Windows NT 6.0; zh-TW; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 3.5.30729)
+Mozilla/5.0 (Windows; U; Windows NT 6.0; ru; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 3.5.30729)
+Mozilla/5.0 (Windows; U; Windows NT 6.0; pt-BR; rv:1.9.1) Gecko/20090624 Firefox/3.5
+Mozilla/5.0 (Windows; U; Windows NT 6.0; nl; rv:1.9.1) Gecko/20090624 Firefox/3.5
+Mozilla/5.0 (Windows; U; Windows NT 6.0; ja; rv:1.9.1) Gecko/20090624 Firefox/3.5 GTB5 (.NET CLR 3.5.30729)
+Mozilla/5.0 (Windows; U; Windows NT 6.0; es-AR; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 3.5.30729)
+Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1) Gecko/20090624 Firefox/3.5 GTB5 (.NET CLR 3.0.30729)
+Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1) Gecko/20090615 Firefox/3.5
+Mozilla/5.0 (Windows; U; Windows NT 5.1; sv-SE; rv:1.9.1) Gecko/20090624 Firefox/3.5
+Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 3.5.30729) FirePHP/0.3
+Mozilla/5.0 (Windows; U; Windows NT 5.1; es-ES; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 3.5.30729)
+Mozilla/5.0 (Windows; U; Windows NT 5.1; es-AR; rv:1.9.1) Gecko/20090624 Firefox/3.5
+Mozilla/5.0 (Windows; U; Windows NT 5.1; en; rv:1.9.1.1) Gecko/20090715 Firefox/3.5
+Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.1) Gecko/20090624 Firefox/3.5 Mnenhy/0.7.6.0
+Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.1) Gecko/20090624 Firefox/3.5 GTB5
+Mozilla/5.0 (Windows; U; Windows NT 5.1; da; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 3.5.30729)
+Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.9.1) Gecko/20090624 Firefox/3.5 GTB5
+Mozilla/5.0 (Windows; U; de) Gecko/20090729 Firefox/3.5 (.NET CLR 3.5)
+Mozilla/5.0 (Windows; ; Windows NT 5.1; en; rv:1.9.1.1) Gecko/20090715 Firefox/3.5
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.4; de; rv:1.9.1) Gecko/20090624 Firefox/3.5
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; nl; rv:1.9.1) Gecko/20090612 Firefox/3.5
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; fr; rv:1.9.1) Gecko/20090624 Firefox/3.5 FirePHP/0.3
+Mozilla/5.0 (Linux; U;Linux X86_64; en-US; rv:1.9.1) Gecko/20090624 Firefox/3.5

@@ -1,0 +1,37 @@
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; tr-tr) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.3
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; sv-se) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.3
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; sv-se) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8_Adobe
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; nl-nl) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.3
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; nl-nl) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; nl-nl) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; nb-no) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.3
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; nb-no) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; it-it) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; it-it) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; fr-fr) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; fr) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; es) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.3
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; es) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-us) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-us) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-us) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.3
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/418 (KHTML, like Gecko) Safari/412.2
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/417.9 (KHTML, like Gecko) Safari/416.13
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; de-de) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.3
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; de-de) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; de-de) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; de-de) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; de-ch) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; da-dk) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.3
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; af-za) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; PPC Linux; en) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; Linux; en) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; ru-ru) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; fr) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.9.2
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8

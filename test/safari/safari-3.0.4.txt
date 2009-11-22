@@ -1,0 +1,37 @@
+Mozilla/5.0 (X11; U; Linux i386; en-GB; rv:1.8.1.7) AppleWebKit (KHTML, like Gecko) (KHTML, like Gecko) Gecko/20070914 Firefox/2.0.0.11 Version/3.0.4 Safari/523.11
+Mozilla/5.0 (Windows; U; Windows NT 6.0; en) AppleWebKit/525+ (KHTML, like Gecko) Version/3.0.4 Safari/523.11
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; sv-se) AppleWebKit/523.12.2 (KHTML, like Gecko) Version/3.0.4 Safari/523.12.2
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; fr-fr) AppleWebKit/523.10.3 (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-us) AppleWebKit/523.10.3 (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_5_4; en-us) AppleWebKit/525.18 (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_4_11; en) AppleWebKit/525.3+ (KHTML, like Gecko) Version/3.0.4 Safari/523.12.2
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; sv-se) AppleWebKit/523.12.2 (KHTML, like Gecko) Version/3.0.4 Safari/523.12.2
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; sv-se) AppleWebKit/523.10.6 (KHTML, like Gecko) Version/3.0.4 Safari/523.10.6
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; sv-se) AppleWebKit/523.10.3 (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; ko-kr) AppleWebKit/523.15.1 (KHTML, like Gecko) Version/3.0.4 Safari/523.15
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; ja-jp) AppleWebKit/523.12.2 (KHTML, like Gecko) Version/3.0.4 Safari/523.12.2
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; ja-jp) AppleWebKit/523.10.3 (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; it-it) AppleWebKit/523.12.2 (KHTML, like Gecko) Version/3.0.4 Safari/523.12.2
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; it-it) AppleWebKit/523.10.6 (KHTML, like Gecko) Version/3.0.4 Safari/523.10.6
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; fr-fr) AppleWebKit/525.1+ (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; fr-fr) AppleWebKit/523.10.3 (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; fr) AppleWebKit/523.12.2 (KHTML, like Gecko) Version/3.0.4 Safari/523.12.2
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; es-es) AppleWebKit/523.15.1 (KHTML, like Gecko) Version/3.0.4 Safari/523.15
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-us) AppleWebKit/525.1+ (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-us) AppleWebKit/525+ (KHTML, like Gecko) Version/3.0.4 Safari/523.11
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-us) AppleWebKit/523.15.1 (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-us) AppleWebKit/523.12 (KHTML, like Gecko) Version/3.0.4 Safari/523.12
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-us) AppleWebKit/523.10.5 (KHTML, like Gecko) Version/3.0.4 Safari/523.10.6
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-gb) AppleWebKit/523.10.6 (KHTML, like Gecko) Version/3.0.4 Safari/523.10.6
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-au) AppleWebKit/525+ (KHTML, like Gecko) Version/3.0.4 Safari/523.11
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-au) AppleWebKit/523.10.3 (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/523.10.3 (KHTML, like Gecko) Version/3.0.4 Safari/523.10)
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/523.10.3 (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_5; en-us) AppleWebKit/528.11+ (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_4; en-us) AppleWebKit/525.18 (KHTML, like Gecko) Version/3.0.4 Safari/523.10
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_3; en-us) AppleWebKit/525.18 (KHTML, like Gecko) Version/3.0.4 Safari/523.15
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_2; nb-no) AppleWebKit/525.8+ (KHTML, like Gecko) Version/3.0.4 Safari/523.15
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_2; en-us) AppleWebKit/526+ (KHTML, like Gecko) Version/3.0.4 Safari/523.15
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_1; en-us) AppleWebKit/525.3+ (KHTML, like Gecko) Version/3.0.4 Safari/523.10.6
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_1; en-us) AppleWebKit/525.2+ (KHTML, like Gecko) Version/3.0.4 Safari/523.10.6
+Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_1; en-gb) AppleWebKit/525.3+ (KHTML, like Gecko) Version/3.0.4 Safari/523.10.6
