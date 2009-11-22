@@ -70,9 +70,19 @@ module SoldierOfCode
             "3.2.1" => ["525.27.1"]
     }
 
-
     attr_reader :ostype, :browser, :os_version, :browser_version_major, :browser_version_minor, :browser_version_sub, :mobile_browser, :console_browser
 
+    #
+    #
+    # =======================================
+    # description:
+    # ----------------
+    #
+    # params:
+    # ----------------
+    #
+    # returns:
+    # ----------------
     def parse(agent)
 
       pass1 = Regexp.new("^([^\\(]*)?[ ]*?(\\([^\\)]*\\))?[ ]*([^\\(]*)?[ ]*?(\\([^\\)]*\\))?[ ]*(.*)")
@@ -91,14 +101,25 @@ module SoldierOfCode
       @ostype = identify_os
 
       matched = process_safari(agent)
-      matched = process_ie(agent) unless matched
       matched = process_firefox(agent) unless matched
+      matched = process_ie(agent) unless matched
       matched = process_opera(agent) unless matched
       matched = process_netscape(agent) unless matched
 
       self
     end
 
+    #
+    #
+    # =======================================
+    # description:
+    # ----------------
+    #
+    # params:
+    # ----------------
+    #
+    # returns:
+    # ----------------
     def identify_platform(agent)
       platform = "Desktop"
       ["PLAYSTATION 3", "wii", "PlayStation Portable", "Xbox", "iPhone", "iPod", "BlackBerry", "Android", "HTC-", "LG", "Motorola", "Nokia", "Treo", "Pre/", "Samsung", "SonyEricsson"].each do |agt|
@@ -107,12 +128,34 @@ module SoldierOfCode
       platform
     end
 
+    #
+    #
+    # =======================================
+    # description:
+    # ----------------
+    #
+    # params:
+    # ----------------
+    #
+    # returns:
+    # ----------------
     def is_mobile?(agent)
       ["iPhone", "iPod", "BlackBerry", "Android", "HTC-", "LG", "Motorola", "Nokia", "Treo", "Pre/", "Samsung", "SonyEricsson"].each do |mobile_agt|
         return true if agent.include?(mobile_agt)
       end
     end
 
+    #
+    #
+    # =======================================
+    # description:
+    # ----------------
+    #
+    # params:
+    # ----------------
+    #
+    # returns:
+    # ----------------
     def identify_os
       os_list = ["Mac OS X", "Linux", "Windows"]
       os = nil
@@ -122,14 +165,21 @@ module SoldierOfCode
       os
     end
 
+    #
+    #
+    # =======================================
+    # description:
+    # ----------------
+    #
+    # params:
+    # ----------------
+    #
+    # returns:
+    # ----------------
     def process_safari(agent_string)
-      # engine & identifier @renderer
-      #AppleWebKit/85.8.5
-      #(KHTML, like Gecko)
-      #Safari/85.8.1
       @identifier = @engine if @identifier == ""
 
-      if @renderer.include?("Safari")
+      if agent_string.include?("Safari")
         @browser = "Safari"
       end
 
@@ -138,31 +188,23 @@ module SoldierOfCode
 
         identifier_sub = nil
         @identifier.gsub(/[\\:\?'"%!@#\$\^&\*\(\)\+]/, '').split(" ").each do |ident|
-#          puts "#{__FILE__}:#{__LINE__} #{__method__} #{ident}"
           identifier_sub = ident.sub("Safari\/", "") if ident.include?("Safari")
           identifier_sub.gsub!(/[\+]/, '') if identifier_sub && identifier_sub.include?("+")
         end
         if identifier_sub == nil && @renderer.include?("Safari")
-#          puts "#{__FILE__}:#{__LINE__} #{__method__} #{@renderer} #{@renderer.sub("\(", "").class.name}"
           renderer_gsub_gsub = @renderer.sub("\(", "").sub("\)", "")
-#          puts "#{__FILE__}:#{__LINE__} #{__method__} #{renderer_gsub_gsub.inspect}"
           renderer_gsub_gsub.strip.split(",").each do |sec|
             identifier_sub = sec.sub("Safari\/", "").strip if sec.include?("Safari")
           end
         end
 
-#        puts "#{__FILE__}:#{__LINE__} #{__method__} #{identifier_sub}"
-
         @@safari.each do |k, v|
           version_numbers = k.gsub(",", ".").split(".")
           v.each do |num|
-#            puts "#{__FILE__}:#{__LINE__} #{__method__} here #{num} ? = #{identifier_sub}"
             if identifier_sub == num
-#              puts "#{__FILE__}:#{__LINE__} #{__method__} here #{identifier_sub} = #{num}"
               @browser_version_major = version_numbers[0] if version_numbers.size > 0
               @browser_version_minor = version_numbers[1] if version_numbers.size > 1
               @browser_version_sub = version_numbers[2] if version_numbers.size > 2
-#              puts "#{__FILE__}:#{__LINE__} #{__method__} #{@browser_version_major} #{version_numbers}"
             end
             break if @browser_version_major
           end
@@ -173,7 +215,6 @@ module SoldierOfCode
           if identifier_sub == "312" then
             engine_sub = @engine.sub("AppleWebKit/", "")
             if engine_sub.include? "416.11" then
-              puts "#{__FILE__}:#{__LINE__} #{__method__} here"
               @browser_version_major = '2'
               @browser_version_minor = '0'
               @browser_version_sub = '2'
@@ -184,7 +225,6 @@ module SoldierOfCode
           if identifier_sub == "419.3" then
             engine_sub = @engine.sub("AppleWebKit/", "")
             if engine_sub.include?("420") then
-              puts "#{__FILE__}:#{__LINE__} #{__method__} here"
               @browser_version_major = '3'
               @browser_version_minor = '0'
               @browser_version_sub = nil
@@ -233,18 +273,99 @@ module SoldierOfCode
       false
     end
 
+    #
+    #
+    # =======================================
+    # description:
+    # ----------------
+    #
+    # params:
+    # ----------------
+    #
+    # returns:
+    # ----------------
     def process_ie(agent)
 
     end
 
+    #
+    #
+    # =======================================
+    # description:
+    # ----------------
+    #
+    # params:
+    # ----------------
+    #
+    # returns:
+    # ----------------
     def process_firefox(agent)
+      @identifier = @engine if @identifier == ""
 
+      if agent.include?("Firefox")
+        @browser = "Firefox"
+      end
+
+      if @identifier.include?("Firefox") || @renderer.include?("Firefox") || @engine.include?("Firefox")
+        @browser = "Firefox"
+
+
+        identifier_sub = nil
+        @identifier.gsub(/[\\:\?'"%!@#\$\^&\*\(\)\+]/, '').split(" ").each do |ident|
+          identifier_sub = ident.sub("Firefox\/", "").sub("Gecko/","") if ident.include?("Firefox")
+          identifier_sub.gsub!(/[\+]/, '') if identifier_sub && identifier_sub.include?("+")
+        end
+        if identifier_sub == nil && @renderer.include?("Firefox")
+          renderer_gsub_gsub = @renderer.sub("\(", "").sub("\)", "")
+          renderer_gsub_gsub.strip.split(",").each do |sec|
+            identifier_sub = sec.sub("Firefox\/", "").strip if sec.include?("Firefox")
+          end
+        end
+        if identifier_sub == nil && @engine.include?("Firefox")
+          @engine.gsub(/[\\:\?'"%!@#\$\^&\*\(\)\+]/, '').split(" ").each do |ident|
+            identifier_sub = ident.sub("Firefox\/", "").sub("Gecko/","") if ident.include?("Firefox")
+            identifier_sub.gsub!(/[\+]/, '') if identifier_sub && identifier_sub.include?("+")
+          end
+        end
+
+        if identifier_sub
+          version_numbers = identifier_sub.split(".")
+          @browser_version_major = version_numbers[0] if version_numbers.size > 0
+          @browser_version_minor = version_numbers[1] if version_numbers.size > 1
+          @browser_version_sub = version_numbers[2] if version_numbers.size > 2
+        end
+
+      end
+      return true if @browser && @browser_version_major
+      false
     end
 
+    #
+    #
+    # =======================================
+    # description:
+    # ----------------
+    #
+    # params:
+    # ----------------
+    #
+    # returns:
+    # ----------------
     def process_opera(agent)
 
     end
 
+    #
+    #
+    # =======================================
+    # description:
+    # ----------------
+    #
+    # params:
+    # ----------------
+    #
+    # returns:
+    # ----------------
     def process_netscape(agent)
 
     end

@@ -23,12 +23,9 @@ class SpyVsSpyTest < Test::Unit::TestCase
 
       file = File.new("#{File.dirname(__FILE__)}/safari/#{filename}", "r")
 
-      puts <<-r
-        #{__FILE__}:#{__LINE__} #{__method__}
-------------------------------
-filename: #{filename}
-------------------------------
-      r
+#      puts <<-r
+#filename: #{filename}
+#      r
       rx =  Regexp.new("^safari(\-(([0-9])(.*)))\.txt")
       rx.match(filename)
       #puts "#{__FILE__}:#{__LINE__} #{__method__} #{$1} - #{$2} - #{$3} - #{$4} - #{$5} - #{$6} - #{$7}"
@@ -37,14 +34,14 @@ filename: #{filename}
 
       while (line = file.gets)
 
-        puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
+#        puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
         r = SoldierOfCode::ParseUserAgent.new.parse(line)
-        puts "#{__FILE__}:#{__LINE__} #{__method__} BROWSER: #{r.browser}"
+#        puts "#{__FILE__}:#{__LINE__} #{__method__} BROWSER: #{r.browser}"
         assert r.browser == 'Safari'
 
         if major_version && major_version.length > 0
-          puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
-          puts "#{__FILE__}:#{__LINE__} #{__method__} #{r.browser_version_major} == #{major_version} ? #{r.browser_version_major == major_version}"
+#          puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
+#          puts "#{__FILE__}:#{__LINE__} #{__method__} #{r.browser_version_major} == #{major_version} ? #{r.browser_version_major == major_version}"
           assert r.browser_version_major == major_version
         end
 
@@ -55,7 +52,54 @@ filename: #{filename}
 
     end
 
-    puts "#{__FILE__}:#{__LINE__} #{__method__} Number of safari agents tested: #{ua_count}"
+#    puts "Number of safari agents tested: #{ua_count}"
+
+
+  end
+
+  def test_firefox_parse
+
+    basedir = File.dirname(__FILE__)+"/firefox"
+    contains = Dir.new(basedir).entries
+    contains.delete(".")
+    contains.delete("..")
+
+    ua_count = 0
+
+    contains.each do |filename|
+
+      file = File.new("#{File.dirname(__FILE__)}/firefox/#{filename}", "r")
+
+      puts <<-r
+filename: #{filename}
+      r
+      rx =  Regexp.new("^firefox(\-(([0-9])(.*)))\.txt")
+      rx.match(filename)
+      #puts "#{__FILE__}:#{__LINE__} #{__method__} #{$1} - #{$2} - #{$3} - #{$4} - #{$5} - #{$6} - #{$7}"
+      major_version = $3
+#      puts "#{__FILE__}:#{__LINE__} #{__method__} #{major_version}"
+
+      while (line = file.gets)
+
+        puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
+        r = SoldierOfCode::ParseUserAgent.new.parse(line)
+        puts "#{__FILE__}:#{__LINE__} #{__method__} BROWSER: #{r.browser}"
+        assert r.browser == 'Firefox'
+
+        if major_version && major_version.length > 0
+          puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
+          puts "#{__FILE__}:#{__LINE__} #{__method__} [#{r.browser_version_major}] == [#{major_version}] ? #{r.browser_version_major == major_version}"
+          assert r.browser_version_major == major_version
+        end
+
+        ua_count+=1
+
+      end
+
+
+    end
+
+    puts "Number of firefox agents tested: #{ua_count}"
 
 
   end
