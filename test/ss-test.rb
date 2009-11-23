@@ -35,7 +35,7 @@ class SpyVsSpyTest < Test::Unit::TestCase
       while (line = file.gets)
 
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
-        r = SoldierOfCode::ParseUserAgent.new.parse(line)
+        r = SoldierOfCode::SpyVsSpy.new.parse(line)
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} BROWSER: #{r.browser}"
         assert r.browser == 'Safari'
 
@@ -82,7 +82,7 @@ class SpyVsSpyTest < Test::Unit::TestCase
       while (line = file.gets)
 
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
-        r = SoldierOfCode::ParseUserAgent.new.parse(line)
+        r = SoldierOfCode::SpyVsSpy.new.parse(line)
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} BROWSER: #{r.browser}"
         assert r.browser == 'Firefox'
 
@@ -129,7 +129,7 @@ class SpyVsSpyTest < Test::Unit::TestCase
       while (line = file.gets)
 
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
-        r = SoldierOfCode::ParseUserAgent.new.parse(line)
+        r = SoldierOfCode::SpyVsSpy.new.parse(line)
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} BROWSER: #{r.browser}"
         assert r.browser == 'MSIE'
 

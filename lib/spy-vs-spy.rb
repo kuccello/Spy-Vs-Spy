@@ -45,7 +45,7 @@ module SoldierOfCode
 
   class SpyVsSpy
 
-    def initialize(app)
+    def initialize(app=nil)
       @app = app
     end
 
@@ -62,9 +62,7 @@ module SoldierOfCode
       ParseUserAgent.new.parse(agent)
     end
 
-  end
-
-  class ParseUserAgent
+  
 
     @@safari = {
             "1.0" => ["85.5", "85.6", "85.7"],
