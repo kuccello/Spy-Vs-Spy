@@ -1,13 +1,14 @@
 require "rubygems"
 require "rack/test"
 require "test/unit"
-require "../lib/spy-vs-spy"
+require 'dirge'
+require ~"../lib/spy_vs_spy"
 
 class SpyVsSpyTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def app
-    SoldierOfCode::SpyVsSpy.new(self)
+    SOC::SpyVsSpy::Middleware.new(self)
   end
 
   def test_safari_parse
@@ -35,7 +36,7 @@ class SpyVsSpyTest < Test::Unit::TestCase
       while (line = file.gets)
 
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
-        r = SoldierOfCode::SpyVsSpy.new.parse(line)
+        r = SoldierOfCode::SpyVsSpy.new(line)
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} BROWSER: #{r.browser}"
         assert r.browser == 'Safari'
 
@@ -82,7 +83,7 @@ class SpyVsSpyTest < Test::Unit::TestCase
       while (line = file.gets)
 
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
-        r = SoldierOfCode::SpyVsSpy.new.parse(line)
+        r = SoldierOfCode::SpyVsSpy.new(line)
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} BROWSER: #{r.browser}"
         assert r.browser == 'Firefox'
 
@@ -129,7 +130,7 @@ class SpyVsSpyTest < Test::Unit::TestCase
       while (line = file.gets)
 
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} #{line}"
-        r = SoldierOfCode::SpyVsSpy.new.parse(line)
+        r = SoldierOfCode::SpyVsSpy.new(line)
 #        puts "#{__FILE__}:#{__LINE__} #{__method__} BROWSER: #{r.browser}"
         assert r.browser == 'MSIE'
 

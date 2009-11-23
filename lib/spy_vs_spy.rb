@@ -35,9 +35,7 @@
 =end
 class String
   def starts_with?(str)
-    str = str.to_str
-    head = self[0, str.length]
-    head == str
+    self.index(str) == 0
   end
 end
 
@@ -45,50 +43,49 @@ module SoldierOfCode
 
   class SpyVsSpy
 
-    def initialize(app=nil)
-      @app = app
+    class Middleware
+      def initialize(app=nil)
+        @app = app
+      end
+
+      def call(env)
+
+        http_user_agent = env['HTTP_USER_AGENT']
+
+        env['soldierofcode.spy-vs-spy'] = ParseUserAgent.new(http_user_agent)
+
+        @app.call(env)
+      end
+
+
     end
-
-    def call(env)
-
-      http_user_agent = env['HTTP_USER_AGENT']
-
-      env['soldierofcode.spy-vs-spy'] = deconstruct(http_user_agent)
-
-      @app.call(env)
-    end
-
-    def deconstruct(agent)
-      ParseUserAgent.new.parse(agent)
-    end
-
-  
 
     @@safari = {
-            "1.0" => ["85.5", "85.6", "85.7"],
-            "1,0.3" => ["85.8.1", "85.8", "85"],
-            "1.2" => ["125", "125.1"],
-            "1.2.2" => ["85.8", "125.7", "125.8"],
-            "1.2.3" => ["100", "125.9"],
-            "1.2.4" => ["125", "125.11", "125.12", "125.12_Adobe", "125.5.5"],
-            "1.3" => ["312"],
-            "1.3.1" => ["312.3.3", "312.3.1", "312.3"],
-            "1.3.2" => ["312.5", "312.6", "312.5_Adobe"],
-            "2.0" => ["412", "412.2.2", "412.2_Adobe"],
-            "2.0.1" => ["412.5", "412.6", "412.5_Adobe"],
-            "2.0.2" => ["416.13", "416.12", "312", "416.13_Adobe", "416.12_Adobe"],
-            "2.0.3" => ["417.9.3", "417.8_Adobe", "417.9.2", "417.8", "412.2"],
-            "2.0.4" => ["419.3"],
-            "3.0" => ["523.13", "522.11.3", "523.12.9", "523.6.1", "522.11.1", "522.11", "522.8.3", "522.7"],
-            "3.0.1" => ["522.12.2"],
-            "3.0.2" => ["522.13.1", "522.12"],
-            "3.0.3" => ["522.15.5", "523.6", "522.12.1"],
-            "3.0.4" => ["523.11", "523.12.2", "523.10", "523.10.6", "523.15", "523.12"],
-            "3.1.1" => ["525.17", "525.18", "525.20"],
-            "3.2.1" => ["525.27.1"]
+      "1.0" => ["85.5", "85.6", "85.7"],
+      "1,0.3" => ["85.8.1", "85.8", "85"],
+      "1.2" => ["125", "125.1"],
+      "1.2.2" => ["85.8", "125.7", "125.8"],
+      "1.2.3" => ["100", "125.9"],
+      "1.2.4" => ["125", "125.11", "125.12", "125.12_Adobe", "125.5.5"],
+      "1.3" => ["312"],
+      "1.3.1" => ["312.3.3", "312.3.1", "312.3"],
+      "1.3.2" => ["312.5", "312.6", "312.5_Adobe"],
+      "2.0" => ["412", "412.2.2", "412.2_Adobe"],
+      "2.0.1" => ["412.5", "412.6", "412.5_Adobe"],
+      "2.0.2" => ["416.13", "416.12", "312", "416.13_Adobe", "416.12_Adobe"],
+      "2.0.3" => ["417.9.3", "417.8_Adobe", "417.9.2", "417.8", "412.2"],
+      "2.0.4" => ["419.3"],
+      "3.0" => ["523.13", "522.11.3", "523.12.9", "523.6.1", "522.11.1", "522.11", "522.8.3", "522.7"],
+      "3.0.1" => ["522.12.2"],
+      "3.0.2" => ["522.13.1", "522.12"],
+      "3.0.3" => ["522.15.5", "523.6", "522.12.1"],
+      "3.0.4" => ["523.11", "523.12.2", "523.10", "523.10.6", "523.15", "523.12"],
+      "3.1.1" => ["525.17", "525.18", "525.20"],
+      "3.2.1" => ["525.27.1"]
     }
 
-    attr_reader :ostype, :browser, :os_version, :browser_version_major, :browser_version_minor, :browser_version_sub, :mobile_browser, :console_browser
+    attr_reader :ostype, :browser, :os_version, :browser_version_major, :browser_version_minor,
+      :browser_version_sub, :mobile_browser, :console_browser, :agent
 
     #
     #
@@ -101,32 +98,30 @@ module SoldierOfCode
     #
     # returns:
     # ----------------
-    def parse(agent)
+    def initialize(agent)
+
+      @agent = agent
 
       pass1 = Regexp.new("^([^\\(]*)?[ ]*?(\\([^\\)]*\\))?[ ]*([^\\(]*)?[ ]*?(\\([^\\)]*\\))?[ ]*(.*)")
-      pass1.match(agent)
+      if matches = pass1.match(agent)
 
-      @product_token = $1 || ''
-      @detail = $2 || ''
-      @engine = $3 || ''
-      @renderer = $4 || ''
-      @identifier = $5 || ''
+        @product_token = matches[1] || ''
+        @detail = matches[2] || ''
+        @engine = matches[3] || ''
+        @renderer = matches[4] || ''
+        @identifier = matches[5] || ''
 
-      #puts "#{__FILE__}:#{__LINE__} #{__method__} [#{@product_token}] [#{@detail}] [#{@engine}] [#{@renderer}] [#{@identifier}]"
+        #puts "#{__FILE__}:#{__LINE__} #{__method__} [#{@product_token}] [#{@detail}] [#{@engine}] [#{@renderer}] [#{@identifier}]"
 
-      @platform = identify_platform(agent)
-      @mobile = is_mobile?(agent)
-      @ostype = identify_os
+        @platform = identify_platform(agent)
+        @mobile = is_mobile?(agent)
+        @ostype = identify_os
 
-      matched = process_safari(agent)
-      matched = process_firefox(agent) unless matched
-      matched = process_ie(agent) unless matched
-      matched = process_opera(agent) unless matched
-      matched = process_netscape(agent) unless matched
-
-      self
+        [:safari, :firefox, :ie, :opera, :netscape].each do |type|
+          send(:"process_#{type}", agent) and break
+        end
+      end
     end
-
     #
     #
     # =======================================
@@ -421,3 +416,4 @@ module SoldierOfCode
     end
   end
 end
+SOC = SoldierOfCode
