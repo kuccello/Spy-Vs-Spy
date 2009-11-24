@@ -33,12 +33,6 @@
   see LICENSE file for details
   
 =end
-class String
-  def starts_with?(str)
-    self.index(str) == 0
-  end
-end
-
 module SoldierOfCode
 
   class SpyVsSpy
@@ -73,22 +67,45 @@ module SoldierOfCode
       
     end
 
-    @@safari = {
-      "1.0" => ["85.5", "85.6", "85.7"],
+    class OS
+      def initialize(os_string)
+        @os_string = os_string
+        @exact_os = (match = /(Mac OS X|Linux|Windows)/.match(@os_string)) ? match[1] : nil
+      end
+      
+      def to_s
+        @os_string
+      end
+      
+      def osx?
+        @exact_os == 'Mac OS X'
+      end
+      
+      def linux?
+        @exact_os == 'Linux'
+      end
+      
+      def windows?
+        @exact_os == 'Windows'
+      end
+    end
+
+    SafariSpecialCases = {
+      "1.0" =>   ["85.5", "85.6", "85.7"],
       "1,0.3" => ["85.8.1", "85.8", "85"],
-      "1.2" => ["125", "125.1"],
+      "1.2" =>   ["125", "125.1"],
       "1.2.2" => ["85.8", "125.7", "125.8"],
       "1.2.3" => ["100", "125.9"],
       "1.2.4" => ["125", "125.11", "125.12", "125.12_Adobe", "125.5.5"],
-      "1.3" => ["312", "312.3.1"],
+      "1.3" =>   ["312", "312.3.1"],
       "1.3.1" => ["312.3.3", "312.3.1", "312.3", "125.8", "125.9"],
       "1.3.2" => ["312.3.3", "312.5", "312.6", "312.5_Adobe"],
-      "2.0" => ["412", "412.2.2", "412.2_Adobe"],
+      "2.0" =>   ["412", "412.2.2", "412.2_Adobe"],
       "2.0.1" => ["412.5", "412.6", "412.5_Adobe"],
       "2.0.2" => ["416.13", "416.12", "312", "416.13_Adobe", "416.12_Adobe", "412.5"],
       "2.0.3" => ["417.9.3", "417.8_Adobe", "417.9.2", "417.8", "412.2"],
       "2.0.4" => ["419.3"],
-      "3.0" => ["523.13", "522.11.3", "523.12.9", "523.6.1", "522.11.1", "522.11", "522.8.3", "522.7"],
+      "3.0" =>   ["523.13", "522.11.3", "523.12.9", "523.6.1", "522.11.1", "522.11", "522.8.3", "522.7"],
       "3.0.1" => ["522.12.2"],
       "3.0.2" => ["522.13.1", "522.12"],
       "3.0.3" => ["522.15.5", "523.6", "522.12.1"],
@@ -97,7 +114,7 @@ module SoldierOfCode
       "3.2.1" => ["525.27.1"]
     }
 
-    attr_reader :ostype, :browser, :os_version, :version, :mobile_browser, :console_browser, :agent
+    attr_reader :browser, :os_version, :version, :mobile_browser, :console_browser, :agent, :os
     
     #
     #
@@ -123,15 +140,14 @@ module SoldierOfCode
         @renderer = matches[4] || ''
         @identifier = matches[5] || ''
 
-        #puts "#{__FILE__}:#{__LINE__} #{__method__} [#{@product_token}] [#{@detail}] [#{@engine}] [#{@renderer}] [#{@identifier}]"
-
         @platform = identify_platform(agent)
         @mobile = is_mobile?(agent)
-        @ostype = identify_os
+        @os = OS.new(@detail)
         @version = Version.new
 
         [:safari, :firefox, :ie, :opera, :netscape].each do |type|
-          send(:"process_#{type}", agent) and break
+          send(:"process_#{type}", agent)
+          break if complete?
         end
         
       end
@@ -148,9 +164,8 @@ module SoldierOfCode
     # returns:
     # ----------------
     def identify_platform(agent)
-      ["PLAYSTATION 3", "wii", "PlayStation Portable", "Xbox", "iPhone", "iPod", "BlackBerry", "Android", "HTC-", "LG", "Motorola", "Nokia", "Treo", "Pre/", "Samsung", "SonyEricsson"].find do |agt|
-        agent.include?(agt)
-      end || "Desktop"
+      (match = /(PLAYSTATION 3|wii|PlayStation Portable|Xbox|iPhone|iPod|BlackBerry|Android|HTC-|LG|Motorola|Nokia|Treo|Pre\/|Samsung|SonyEricsson)/.match(agent)) ?
+        match[1] : 'Desktop'
     end
 
     #
@@ -165,26 +180,11 @@ module SoldierOfCode
     # returns:
     # ----------------
     def is_mobile?(agent)
-      ["iPhone", "iPod", "BlackBerry", "Android", "HTC-", "LG", "Motorola", "Nokia", "Treo", "Pre/", "Samsung", "SonyEricsson"].any? do |mobile_agt|
-        agent.include?(mobile_agt)
-      end
+      /(iPhone|iPod|BlackBerry|Android|HTC-|LG|Motorola|Nokia|Treo|Pre\/|Samsung|SonyEricsson)/.match(agent)
     end
 
-    #
-    #
-    # =======================================
-    # description:
-    # ----------------
-    #
-    # params:
-    # ----------------
-    #
-    # returns:
-    # ----------------
-    def identify_os
-      ["Mac OS X", "Linux", "Windows"].find do |agt|
-        @detail.include?(agt)
-      end
+    def complete?
+      @browser && @version.major
     end
 
     #
@@ -220,13 +220,11 @@ module SoldierOfCode
           end
         end
 
-        @@safari.each do |k, v|
+        SafariSpecialCases.each do |k, v|
           version_numbers = k.gsub(",", ".").split(".")
           v.each do |num|
             if identifier_sub == num
-              @version.major = version_numbers[0] if version_numbers.size > 0
-              @version.minor = version_numbers[1] if version_numbers.size > 1
-              @version.sub = version_numbers[2] if version_numbers.size > 2
+              @version.update(*version_numbers)
             end
             break if @version.major
           end
@@ -234,83 +232,64 @@ module SoldierOfCode
           # Special case 312 - check AppleWebKit
           # Special case 419.3 - could me mobile v3 check AppleWebKit for 420+
 
-          if identifier_sub == "85.8" then
-            case @engine
-            when /AppleWebKit\/125.2/
-              @version.update('1', '2', '2')
+          engine_id = @engine[/AppleWebKit\/([0-9.]+)/, 1]
+
+          case identifier_sub
+          when "85.8"
+            case engine_id
+            when '125.2'     then @version.update('1', '2', '2')
             end
-          elsif identifier_sub == "125" then
-            case @engine
-            when /AppleWebKit\/124/
-              @version.update('1', '2')
-            when /AppleWebKit\/312\.5\.2/
-              @version.update('1', '3', '1')
-            when /AppleWebKit\/312\.1/
-              @version.update('1', '3')
+          when "125"
+            case engine_id
+            when '124'       then @version.update('1', '2')
+            when '312.5.2'   then @version.update('1', '3', '1')
+            when '312.1'     then @version.update('1', '3')
             end
-          elsif identifier_sub == '412.5' then
-            case @engine
-            when /AppleWebKit\/416\.12/
-              @version.update('2','0','2')
+          when '412.5'
+            case engine_id
+            when '416.12'    then @version.update('2','0','2')
             end
-          elsif identifier_sub == '416.13' then
-            case @engine
-            when /AppleWebKit\/417\.9/
-              @version.update('2','0','3')
+          when '416.13'
+            case engine_id
+            when '417.9'     then @version.update('2','0','3')
             end
-          elsif identifier_sub == '412.2' then
-            case @engine
-            when /AppleWebKit\/412\.6/
-              @version.update('2','0')
+          when '412.2'
+            case engine_id
+            when '412.6'     then @version.update('2','0')
             end
-          elsif identifier_sub == '312.3.1' then
-            case @engine
-            when /AppleWebKit\/312\.1/
-              @version.update('1', '3')
-            when /AppleWebKit\/312\.5\.1/
-              @version.update('1', '3', '1')
+          when '312.3.1'
+            case engine_id
+            when '312.1'     then @version.update('1', '3')
+            when '312.5.1'   then @version.update('1', '3', '1')
             end
-          elsif identifier_sub == "125.8" then
-            case @engine
-            when /AppleWebKit\/312\.5\.1/
-              @version.update('1', '3', '1')
-            when /AppleWebKit\/125\.2/
-              @version.update('1', '2', '2')
+          when "125.8"
+            case engine_id
+            when '312.5.1'   then @version.update('1', '3', '1')
+            when '125.2'     then @version.update('1', '2', '2')
             end
-          elsif identifier_sub == "125.9" then
-            case @engine
-            when /AppleWebKit\/125\.4/
-              @version.update('1', '2', '3')
-            when /AppleWebKit\/125\.5/
-              @version.update('1', '2', '3')
+          when "125.9"
+            case engine_id
+            when '125.4'     then @version.update('1', '2', '3')
+            when '125.5'     then @version.update('1', '2', '3')
             end
-          elsif identifier_sub == "312" then
-            engine_sub = @engine.sub("AppleWebKit/", "")
-            if engine_sub.include? "416.11" then
-              @version.update('2', '0', '2')
+          when "312"
+            case engine_id
+            when '416.11'    then @version.update('2', '0', '2')
             end
-          elsif identifier_sub == "312.3.3" then
-            case @engine
-            when /AppleWebKit\/312\.8/
-              @version.update('1', '3', '2')
+          when "312.3.3"
+            case engine_id
+            when '312.8'     then @version.update('1', '3', '2')
             end
-          elsif identifier_sub == "419.3" then
-            engine_sub = @engine.sub("AppleWebKit/", "")
-            if engine_sub.include?("420") then
-              @version.major = '3'
-              @version.minor = '0'
-              @version.sub = nil
-            else
+          when "419.3"
+            case engine_id
+            when "420"       then @version.update('3', '0')
             end
           end
 
           if (identifier_sub == "Safari") || (@identifier == "Safari/")then
-            engine_sub = @engine.sub("AppleWebKit/", "")
-            if engine_sub.include?("418.9") || engine_sub.include?("418.8") then
-              @version.major = '2'
-              @version.minor = '0'
-              @version.sub = '4'
-            else
+            case engine_id
+            when "418.9", "418.8"
+              @version.update('2', '0', '4')
             end
           end
 
@@ -319,10 +298,7 @@ module SoldierOfCode
             @identifier.split(" ").each do |ident|
               ident_sub = ident.sub("Version\/", "") if ident.include?("Version")
               if ident_sub then
-                vs = ident_sub.gsub(",", ".").split(".")
-                @version.major = vs[0] if vs.size > 0
-                @version.minor = vs[1] if vs.size > 1
-                @version.sub = vs[2] if vs.size > 2
+                @version.update(*ident_sub.split(/[.,]/))
               end
             end
           end
@@ -337,12 +313,9 @@ module SoldierOfCode
         end
       end
 
-      if @browser == nil && agent_string.include?("Mac OS X") && agent_string.include?("AppleWebKit")
+      if @browser == nil && @os.osx? && agent_string.include?("AppleWebKit")
         @browser = "Safari"
       end
-
-      return true if @browser && @version.major
-      false
     end
 
     #
@@ -363,11 +336,8 @@ module SoldierOfCode
       end
       if @detail.include?("MSIE")
         @detail.gsub(/[\\:\?'"%!@#\$\^&\*\(\)\+]/, '').split(";").each do |sec|
-          if sec.strip.starts_with?("MSIE ") then
-            s = sec.strip.sub("MSIE ", "").gsub(/0(\d)/, '0.\1').sub(",", ".").split(".")
-            @version.major = s[0]
-            @version.minor = s[1]
-            @version.sub =   s[2]
+          if sec.strip.index("MSIE ") == 0
+            @version.update(*sec.strip.sub("MSIE ", "").gsub(/0(\d)/, '0.\1').split(/[.,]/))
           end
 
           break if @version.major
@@ -375,19 +345,9 @@ module SoldierOfCode
       end
 
       unless @version.major
-        if agent.include?("MSIE 6.0")
+        if match = /MSIE ([6789])\.0/.match(agent)
           @browser = "MSIE"
-          @version.major = '6'
-          @version.minor = '0'
-        end
-        if agent.include?("MSIE 7.0")
-          @browser = "MSIE"
-          @version.major = '7'
-          @version.minor = '0'
-        end
-        if agent.include?("MSIE 8.0")
-          @browser = "MSIE"
-          @version.major = '8'
+          @version.major = match[1]
           @version.minor = '0'
         end
       end
@@ -414,19 +374,21 @@ module SoldierOfCode
       if @identifier.include?("Firefox") || @renderer.include?("Firefox") || @engine.include?("Firefox")
         @browser = "Firefox"
 
-
         identifier_sub = nil
-        @identifier.gsub(/[\\:\?'"%!@#\$\^&\*\(\)\+]/, '').split(" ").each do |ident|
-          identifier_sub = ident.sub("Firefox\/", "").sub("Gecko/", "") if ident.include?("Firefox")
-          identifier_sub.gsub!(/[\+]/, '') if identifier_sub && identifier_sub.include?("+")
+        @identifier.gsub(/[\\:\?'"%!@#\$\^&\*\(\)\+]/, '').split(" ").find do |ident|
+          if ident.include?("Firefox")
+            identifier_sub = ident.sub("Firefox\/", "").sub("Gecko/", "")
+            identifier_sub.gsub!(/[\+]/, '')
+          end
+          identifier_sub
         end
-        if identifier_sub == nil && @renderer.include?("Firefox")
+        if identifier_sub.nil? && @renderer.include?("Firefox")
           renderer_gsub_gsub = @renderer.sub("\(", "").sub("\)", "")
           renderer_gsub_gsub.strip.split(",").each do |sec|
             identifier_sub = sec.sub("Firefox\/", "").strip if sec.include?("Firefox")
           end
         end
-        if identifier_sub == nil && @engine.include?("Firefox")
+        if identifier_sub.nil? && @engine.include?("Firefox")
           @engine.gsub(/[\\:\?'"%!@#\$\^&\*\(\)\+]/, '').split(" ").each do |ident|
             identifier_sub = ident.sub("Firefox\/", "").sub("Gecko/", "") if ident.include?("Firefox")
             identifier_sub.gsub!(/[\+]/, '') if identifier_sub && identifier_sub.include?("+")
@@ -436,15 +398,9 @@ module SoldierOfCode
         identifier_sub.gsub!(/;.*/, '')
 
         if identifier_sub
-          version_numbers = identifier_sub.split(".")
-          @version.major = version_numbers[0] if version_numbers.size > 0
-          @version.minor = version_numbers[1] if version_numbers.size > 1
-          @version.sub = version_numbers[2] if version_numbers.size > 2
+          @version.update(*identifier_sub.split("."))
         end
-
       end
-      return true if @browser && @version.major
-      false
     end
 
     #
@@ -478,4 +434,5 @@ module SoldierOfCode
     end
   end
 end
+
 SOC = SoldierOfCode

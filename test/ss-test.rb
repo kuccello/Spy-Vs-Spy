@@ -19,6 +19,7 @@ class SpyVsSpyTest < Test::Unit::TestCase
         major, minor, sub = version_string.split(/[,\.]/) 
         File.open(file) do |f|
           f.each_line do |line|
+            puts "testing #{line}"
             r = SoldierOfCode::SpyVsSpy.new(line)
             assert_equal browser_name, r.browser   
             assert_equal major,        r.version.major
