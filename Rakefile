@@ -3,7 +3,7 @@ require 'rake/testtask'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
-    s.name = "Spy-Vs-Spy"
+    s.name = "spy-vs-spy"
     s.description = s.summary = "Rack middleware to detect and provide more detail on the requesting user agent edit"
     s.email = "kuccello@gmail.com"
     s.homepage = "http://github.com/kuccello/Spy-Vs-Spy"
