@@ -28,5 +28,5 @@ class SpyVsSpyTest < Test::Unit::TestCase
         end
       end
     end
-    
+  end
 end
