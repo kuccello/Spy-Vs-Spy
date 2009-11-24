@@ -241,6 +241,7 @@ module SoldierOfCode
             end
           when "125"
             case engine_id
+            when '125.5.5'   then @version.update('1', '2', '4')
             when '124'       then @version.update('1', '2')
             when '312.5.2'   then @version.update('1', '3', '1')
             when '312.1'     then @version.update('1', '3')
@@ -271,6 +272,7 @@ module SoldierOfCode
             case engine_id
             when '125.4'     then @version.update('1', '2', '3')
             when '125.5'     then @version.update('1', '2', '3')
+            when '312.5.1'   then @version.update('1', '3', '1')  
             end
           when "312"
             case engine_id
