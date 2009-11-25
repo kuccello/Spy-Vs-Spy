@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{spy-vs-spy}
-  s.version = "0.0.5"
+  s.version = "0.0.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristan \"Krispy\" Uccello"]
@@ -44,8 +44,7 @@ Gem::Specification.new do |s|
      "test/firefox/Firefox-3.8.txt",
      "test/msie/MSIE-5.5.txt",
      "test/msie/MSIE-5.5b1.txt",
-     "test/msie/MSIE-6,
-    0.txt",
+     "test/msie/MSIE-6,0.txt",
      "test/msie/MSIE-6.0.1.txt",
      "test/msie/MSIE-6.0.txt",
      "test/msie/MSIE-6.0b.txt",

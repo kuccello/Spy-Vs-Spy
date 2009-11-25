@@ -46,7 +46,7 @@ module SoldierOfCode
 
         http_user_agent = env['HTTP_USER_AGENT']
 
-        env['soldierofcode.spy-vs-spy'] = SpyVsSpy.new(http_user_agent)
+        env['soldierofcode.spy-vs-spy'] = SoldierOfCode::SpyVsSpy.new(http_user_agent)
 
         @app.call(env)
       end
