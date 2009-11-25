@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{spy-vs-spy}
-  s.version = "0.0.7"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristan \"Krispy\" Uccello"]
-  s.date = %q{2009-11-24}
+  s.date = %q{2009-11-25}
   s.description = %q{Rack middleware to detect and provide more detail on the requesting user agent edit}
   s.email = %q{kuccello@gmail.com}
   s.extra_rdoc_files = [
@@ -44,7 +44,8 @@ Gem::Specification.new do |s|
      "test/firefox/Firefox-3.8.txt",
      "test/msie/MSIE-5.5.txt",
      "test/msie/MSIE-5.5b1.txt",
-     "test/msie/MSIE-6,0.txt",
+     "test/msie/MSIE-6,
+    0.txt",
      "test/msie/MSIE-6.0.1.txt",
      "test/msie/MSIE-6.0.txt",
      "test/msie/MSIE-6.0b.txt",
