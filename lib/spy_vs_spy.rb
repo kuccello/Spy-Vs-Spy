@@ -398,7 +398,7 @@ module SoldierOfCode
         identifier_sub.gsub!(/;.*/, '')
 
         if identifier_sub
-          @version.update(*identifier_sub.split("."))
+          @version.update(*identifier_sub.split(".")[0, 3])
         end
       end
     end
