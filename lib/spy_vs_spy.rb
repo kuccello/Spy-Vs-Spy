@@ -46,7 +46,7 @@ module SoldierOfCode
 
         http_user_agent = env['HTTP_USER_AGENT']
 
-        env['soldierofcode.spy-vs-spy'] = ParseUserAgent.new(http_user_agent)
+        env['soldierofcode.spy-vs-spy'] = SoldierOfCode::SpyVsSpy.new(http_user_agent)
 
         @app.call(env)
       end
@@ -114,7 +114,7 @@ module SoldierOfCode
       "3.2.1" => ["525.27.1"]
     }
 
-    attr_reader :browser, :os_version, :version, :mobile_browser, :console_browser, :agent, :os
+    attr_reader :browser, :os_version, :version, :mobile_browser, :console_browser, :agent, :os, :platform
     
     #
     #
@@ -241,6 +241,7 @@ module SoldierOfCode
             end
           when "125"
             case engine_id
+            when '125.5.5'   then @version.update('1', '2', '4')
             when '124'       then @version.update('1', '2')
             when '312.5.2'   then @version.update('1', '3', '1')
             when '312.1'     then @version.update('1', '3')
@@ -271,6 +272,7 @@ module SoldierOfCode
             case engine_id
             when '125.4'     then @version.update('1', '2', '3')
             when '125.5'     then @version.update('1', '2', '3')
+            when '312.5.1'   then @version.update('1', '3', '1')  
             end
           when "312"
             case engine_id

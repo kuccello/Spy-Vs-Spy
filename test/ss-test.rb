@@ -15,13 +15,14 @@ class SpyVsSpyTest < Test::Unit::TestCase
     
     Dir[~'**/*.txt'].each do |file|
       browser_name, version_string = File.basename(file)[/^(.*)\.txt$/, 1].split('-')
+      puts ">>> #{browser_name} -- #{version_string}"
       if version_string
         major, minor, sub = version_string.split(/[,\.]/) 
         File.open(file) do |f|
           f.each_line do |line|
             puts "testing #{line}"
             r = SoldierOfCode::SpyVsSpy.new(line)
-            assert_equal browser_name, r.browser   
+            assert_equal browser_name.downcase, r.browser.downcase   
             assert_equal major,        r.version.major
             assert_equal minor,        r.version.minor
             assert_equal sub,          r.version.sub
