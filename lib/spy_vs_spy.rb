@@ -62,31 +62,47 @@ module SoldierOfCode
       end
       
       def update(major = nil, minor = nil, sub = nil)
-        @major, @minor, @sub = major, minor, sub
+        self.major, self.minor, self.sub = major, minor, sub
       end
       
+      def parse!(str)
+        self.major, self.minor, self.sub = *str.split('.')
+      end
+      
+      def major=(major)
+        @major = major && major.to_i
+      end
+
+      def minor=(minor)
+        @minor = minor && minor.to_i
+      end
+
+      def sub=(sub)
+        @sub = sub && sub.to_i
+      end
     end
 
     class OS
-      def initialize(os_string)
-        @os_string = os_string
-        @exact_os = (match = /(Mac OS X|Linux|Windows)/.match(@os_string)) ? match[1] : nil
+      
+      OSS = {'Mac OS X' => :osx, 'Linux' => :linux, 'Windows' => :windows}
+      
+      attr_reader :exact, :original
+      
+      def initialize(original)
+        @original = original
+        @exact = (match = /(#{OSS.keys.map{|os| Regexp.quote(os)}.join("|")})/.match(original)) ? match[1] : nil
       end
       
       def to_s
-        @os_string
+        original
       end
       
-      def osx?
-        @exact_os == 'Mac OS X'
-      end
-      
-      def linux?
-        @exact_os == 'Linux'
-      end
-      
-      def windows?
-        @exact_os == 'Windows'
+      OSS.each do |value, method|
+        class_eval "
+          def #{method}?
+            OSS[exact] == #{method.inspect}
+          end
+        "
       end
     end
 
@@ -131,7 +147,7 @@ module SoldierOfCode
 
       @agent = agent
       
-      pass1 = Regexp.new("^([^\\(]*)?[ ]*?(\\([^\\)]*\\))?[ ]*([^\\(]*)?[ ]*?(\\([^\\)]*\\))?[ ]*(.*)")
+      pass1 = /^([^\(]*)?[ ]*?(\([^\)]*\))?[ ]*([^\(]*)?[ ]*?(\([^\)]*\))?[ ]*(.*)/
       if matches = pass1.match(agent)
 
         @product_token = matches[1] || ''
@@ -184,7 +200,7 @@ module SoldierOfCode
     end
 
     def complete?
-      @browser && @version.major
+      browser && version.major
     end
 
     #
@@ -224,9 +240,9 @@ module SoldierOfCode
           version_numbers = k.gsub(",", ".").split(".")
           v.each do |num|
             if identifier_sub == num
-              @version.update(*version_numbers)
+              version.update(*version_numbers)
             end
-            break if @version.major
+            break if version.major
           end
           # Special case 58.8 - check WebKit numbers
           # Special case 312 - check AppleWebKit
@@ -237,85 +253,80 @@ module SoldierOfCode
           case identifier_sub
           when "85.8"
             case engine_id
-            when '125.2'     then @version.update('1', '2', '2')
+            when '125.2'     then version.parse!('1.2.2')
             end
           when "125"
             case engine_id
-            when '125.5.5'   then @version.update('1', '2', '4')
-            when '124'       then @version.update('1', '2')
-            when '312.5.2'   then @version.update('1', '3', '1')
-            when '312.1'     then @version.update('1', '3')
+            when '125.5.5'   then version.parse!('1.2.4')
+            when '124'       then version.parse!('1.2')
+            when '312.5.2'   then version.parse!('1.3.1')
+            when '312.1'     then version.parse!('1.3')
             end
           when '412.5'
             case engine_id
-            when '416.12'    then @version.update('2','0','2')
+            when '416.12'    then version.parse!('2.0.2')
             end
           when '416.13'
             case engine_id
-            when '417.9'     then @version.update('2','0','3')
+            when '417.9'     then version.parse!('2.0.3')
             end
           when '412.2'
             case engine_id
-            when '412.6'     then @version.update('2','0')
+            when '412.6'     then version.parse!('2.0')
             end
           when '312.3.1'
             case engine_id
-            when '312.1'     then @version.update('1', '3')
-            when '312.5.1'   then @version.update('1', '3', '1')
+            when '312.1'     then version.parse!('1.3')
+            when '312.5.1'   then version.parse!('1.3.1')
             end
           when "125.8"
             case engine_id
-            when '312.5.1'   then @version.update('1', '3', '1')
-            when '125.2'     then @version.update('1', '2', '2')
+            when '312.5.1'   then version.parse!('1.3.1')
+            when '125.2'     then version.parse!('1.2.2')
             end
           when "125.9"
             case engine_id
-            when '125.4'     then @version.update('1', '2', '3')
-            when '125.5'     then @version.update('1', '2', '3')
-            when '312.5.1'   then @version.update('1', '3', '1')  
+            when '125.4'     then version.parse!('1.2.3')
+            when '125.5'     then version.parse!('1.2.3')
+            when '312.5.1'   then version.parse!('1.3.1')  
             end
           when "312"
             case engine_id
-            when '416.11'    then @version.update('2', '0', '2')
+            when '416.11'    then version.parse!('2.0.2')
             end
           when "312.3.3"
             case engine_id
-            when '312.8'     then @version.update('1', '3', '2')
+            when '312.8'     then version.parse!('1.3.2')
             end
           when "419.3"
             case engine_id
-            when "420"       then @version.update('3', '0')
+            when "420"       then version.parse!('3.0')
             end
           end
 
           if (identifier_sub == "Safari") || (@identifier == "Safari/")then
             case engine_id
             when "418.9", "418.8"
-              @version.update('2', '0', '4')
+              version.parse!('2.0.4')
             end
           end
 
           ident_sub = nil
           if @identifier.include?("Version") then
             @identifier.split(" ").each do |ident|
-              ident_sub = ident.sub("Version\/", "") if ident.include?("Version")
-              if ident_sub then
-                @version.update(*ident_sub.split(/[.,]/))
-              end
+              version.update(*ident.split(/[.,]/).map{|v| v.gsub('Version/', '').gsub(/^(\d*)\D?.*/, '\1')}) if ident.include?('Version')
             end
           end
 
           if @identifier == "Safari/412 Privoxy/3.0" then
-            @version.major = '2'
-            @version.minor = '0'
-            @version.sub = nil
+            version.parse!('2.0')
           end
 
-          break if @version.major
+          break if version.major
         end
       end
 
-      if @browser == nil && @os.osx? && agent_string.include?("AppleWebKit")
+      if @browser == nil && os.osx? && agent_string.include?("AppleWebKit")
         @browser = "Safari"
       end
     end
@@ -339,18 +350,18 @@ module SoldierOfCode
       if @detail.include?("MSIE")
         @detail.gsub(/[\\:\?'"%!@#\$\^&\*\(\)\+]/, '').split(";").each do |sec|
           if sec.strip.index("MSIE ") == 0
-            @version.update(*sec.strip.sub("MSIE ", "").gsub(/0(\d)/, '0.\1').split(/[.,]/))
+            version.update(*sec.strip.sub("MSIE ", "").gsub(/0(\d)/, '0.\1').split(/[.,]/))
           end
 
-          break if @version.major
+          break if version.major
         end
       end
 
-      unless @version.major
+      unless version.major
         if match = /MSIE ([6789])\.0/.match(agent)
           @browser = "MSIE"
-          @version.major = match[1]
-          @version.minor = '0'
+          version.major = match[1]
+          version.minor = '0'
         end
       end
     end
@@ -400,7 +411,7 @@ module SoldierOfCode
         identifier_sub.gsub!(/;.*/, '')
 
         if identifier_sub
-          @version.update(*identifier_sub.split(".")[0, 3])
+          version.update(*identifier_sub.split(".")[0, 3])
         end
       end
     end

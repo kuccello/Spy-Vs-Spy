@@ -17,7 +17,7 @@ class SpyVsSpyTest < Test::Unit::TestCase
       browser_name, version_string = File.basename(file)[/^(.*)\.txt$/, 1].split('-')
       puts ">>> #{browser_name} -- #{version_string}"
       if version_string
-        major, minor, sub = version_string.split(/[,\.]/) 
+        major, minor, sub = version_string.split(/[,\.]/).map{|v| v && v.to_i}
         File.open(file) do |f|
           f.each_line do |line|
             puts "testing #{line}"
