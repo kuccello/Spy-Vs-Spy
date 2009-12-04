@@ -91,7 +91,7 @@ module SoldierOfCode
       
       def initialize(original)
         @original = original
-        @exact = (match = OsMatchRegex.match(original)) ? match[1] : nil
+        @exact = (match = OsMatchRegex.match(original)) && match[1]
       end
       
       def to_s
