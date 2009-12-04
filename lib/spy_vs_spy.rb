@@ -85,12 +85,13 @@ module SoldierOfCode
     class OS
       
       OSS = {'Mac OS X' => :osx, 'Linux' => :linux, 'Windows' => :windows}
+      OsMatchRegex = /(#{OSS.keys.map{|os| Regexp.quote(os)}.join("|")})/
       
       attr_reader :exact, :original
       
       def initialize(original)
         @original = original
-        @exact = (match = /(#{OSS.keys.map{|os| Regexp.quote(os)}.join("|")})/.match(original)) ? match[1] : nil
+        @exact = (match = OsMatchRegex.match(original)) ? match[1] : nil
       end
       
       def to_s
